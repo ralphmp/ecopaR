@@ -1,0 +1,140 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# ecopaR - an R package for parasite ecology
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+
+
+## Installation
+
+You can install and attach the development version of ecopaR like so:
+
+```{r, eval=FALSE, include=TRUE}
+if(!require(devtools)){
+    install.packages("devtools")
+}
+
+if(!require(ecopaR)){
+    devtools::install_github("ralphmp/ecopaR")
+}
+
+library(ecopaR)
+```
+
+## Examples:
+
+
+
+```{r, echo = FALSE, message=FALSE, include=FALSE}
+library(ecopaR)
+library(tidyverse)
+
+```
+
+### birdticks data:
+
+```{r birdticks}
+
+attach(birdticks)
+str(birdticks)
+head(birdticks)
+
+```
+
+### Basic functions:
+```{r }
+
+prevalence(ticks)
+abundance(ticks)
+intensity(ticks)
+
+
+```
+
+
+### Aggregation indexes:
+
+```{r}
+
+var_mean(ticks)
+k_negative_binomial(ticks)
+k_negative_binomial_inverse(ticks)
+discrepancy(ticks)
+
+```
+
+##### Please, see note about k_negative_binomial functions before use.
+
+### Combining with R functions:
+
+```{r}
+
+birdticks %>% 
+  group_by(birds) %>% 
+    summarise(
+      Prevalence = prevalence(ticks)[1],
+      Abundance = abundance(ticks)[1],
+      Intensity = intensity(ticks)[1]) %>% 
+      head()
+```
+
+Prevalence graph:
+
+```{r}
+
+birdticks %>% 
+  group_by(birds) %>% 
+  summarise(
+    Prevalence = prevalence(ticks)[1]) -> gg
+
+graph <- ggplot(gg, aes(x = birds, y = Prevalence)) + geom_bar(stat = "identity", fill="turquoise4")
+graph + coord_flip()
+
+```
+
+Intensity graph:
+
+```{r}
+
+birdticks %>% 
+  group_by(birds) %>% 
+  summarise(
+    Intensity = intensity(ticks)[1],
+    Standard_Deviation = intensity(ticks)[2]) -> gg
+
+graph <- ggplot(gg, aes(x = birds, y = Intensity$Mean.Intensity)) + geom_bar(stat = "identity", fill = "turquoise4" , position=position_dodge()) +
+geom_errorbar(aes(ymin = ifelse(Intensity$Mean.Intensity - Standard_Deviation$Standard.Deviation < 0, 0, Intensity$Mean.Intensity - Standard_Deviation$Standard.Deviation), ymax = Intensity$Mean.Intensity + Standard_Deviation$Standard.Deviation), width = 0, position=position_dodge(.9))
+
+graph + scale_fill_brewer(palette="Dark2") + coord_flip() 
+
+
+```
+
+
+
+### Hydric stress functions:
+
+
+```{r}
+
+saturation_deficit(80, 25)
+
+saturation_deficit_bulb(wet_bulb = 22, dry_bulb = 26)
+
+```
+
