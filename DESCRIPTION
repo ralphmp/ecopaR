@@ -1,11 +1,11 @@
 Package: ecopaR
 Title: functions for parasite ecology
-Version: 0.0.0.9013
+Version: 0.0.0.9014
 Authors@R: 
     person(given = "Ralph",
            family = "Maturano",
            role = c("aut", "cre"),
-           email = "ralph.maturano@ufjf.edu.br")
+           email = "ralph.maturano@ufjf.br")
 Description: Functions to calculate several indexes like prevalence, 
   abundance, aggregation.
 License: GPL (>= 3)
@@ -18,4 +18,5 @@ Depends:
 Imports:
     lubridate,
     stats,
-    fitdistrplus
+    fitdistrplus,
+    dplyr
