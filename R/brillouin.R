@@ -29,4 +29,3 @@ H_Brillouin <- function (x) {
     return(as.data.frame(H))
   }
 }
-
