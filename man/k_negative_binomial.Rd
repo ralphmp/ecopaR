@@ -17,9 +17,9 @@ Calculate binomial negative aggregation index. Note that this function is a very
 }
 \section{Functions}{
 \itemize{
-\item \code{k_negative_binomial_inverse}: K from binomial negative inverse
-}}
+\item \code{k_negative_binomial_inverse()}: K from binomial negative inverse
 
+}}
 \examples{
 attach(birdticks)
 k_negative_binomial(ticks)
