@@ -2,7 +2,7 @@
 #' @description Intensity of parasites according to Bush et al. (1997).
 #' @references
 #' Bush, Albert O., Kevin D. Lafferty, Jeffrey M. Lotz, and Allen W. Shostak. 1997. “Parasitology Meets Ecology on Its Own Terms: Margolis et al. Revisited.” The Journal of Parasitology 83 (4): 575. \doi{10.2307/3284227}
-#' @return data frame with Mean Intensity and Standard Deviation.
+#' @return data frame with Mean Intensity, Standard Deviation, and 95% Confidence Intervals.
 #' @param x number of parasites by host
 #' @importFrom stats sd var
 #' @export
@@ -24,13 +24,15 @@ intensity <- function (x) {
   if (sum(x) == 0) {
     i0 <- c(0)
     i0_sd <- c(0)
-    dfi0 <- data.frame("Mean.Intensity" = i0, "Standard.Deviation" = i0_sd)
+    dfi0 <- data.frame("Mean.Intensity" = i0, "Standard.Deviation" = i0_sd, "CI.Lower" == NA, "CI.Upper" == NA)
     return(dfi0)
   } else {
     x <- x[!is.na(x)]
     int_mean <- round((sum(x)/(length(x[x != 0]))), digits = 3)
     int_sd <- round(sd(x[x !=0]), digits = 3)
-    new_df <- data.frame("Mean.Intensity" = int_mean, "Standard.Deviation" = int_sd)
+    ci_l <- ifelse(mean(x) - 1.95996 * (sd(x)/sqrt(length(x))) < 0, 0, round(mean(x) - 1.95996 * (sd(x)/sqrt(length(x))), digits = 3))
+    ci_u <- round(mean(x) + 1.95996 * (sd(x)/sqrt(length(x))), digits = 3)
+    new_df <- data.frame("Mean.Intensity" = int_mean, "Standard.Deviation" = int_sd, "CI.Lower" = ci_l, "CI.Upper" = ci_u)
     return(new_df)
   }
 }
