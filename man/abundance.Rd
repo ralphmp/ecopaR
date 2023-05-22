@@ -10,7 +10,7 @@ abundance(x)
 \item{x}{number of parasites by host}
 }
 \value{
-data frame with Mean Abundance and Standard Deviation.
+data frame with Mean Abundance, Standard Deviation, and 95\% Confidence Intervals.
 }
 \description{
 Abundance of parasites according to Bush et al. (1997).

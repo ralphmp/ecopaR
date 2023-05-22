@@ -10,7 +10,7 @@ intensity(x)
 \item{x}{number of parasites by host}
 }
 \value{
-data frame with Mean Intensity and Standard Deviation.
+data frame with Mean Intensity, Standard Deviation, and 95\% Confidence Intervals.
 }
 \description{
 Intensity of parasites according to Bush et al. (1997).
