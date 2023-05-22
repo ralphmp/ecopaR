@@ -30,8 +30,8 @@ intensity <- function (x) {
     x <- x[!is.na(x)]
     int_mean <- round((sum(x)/(length(x[x != 0]))), digits = 3)
     int_sd <- round(sd(x[x !=0]), digits = 3)
-    ci_l <- ifelse(mean(x) - 1.95996 * (sd(x)/sqrt(length(x))) < 0, 0, round(mean(x) - 1.95996 * (sd(x)/sqrt(length(x))), digits = 3))
-    ci_u <- round(mean(x) + 1.95996 * (sd(x)/sqrt(length(x))), digits = 3)
+    ci_l <- ifelse(int_mean - 1.95996 * (sd(x[x != 0])/sqrt(length(x[x != 0]))) < 0, 0, round(int_mean - 1.95996 * (sd(x[x != 0])/sqrt(length(x[x != 0]))), digits = 3))
+    ci_u <- round(int_mean + 1.95996 * (sd(x[x != 0])/sqrt(length(x[x != 0]))), digits = 3)
     new_df <- data.frame("Mean.Intensity" = int_mean, "Standard.Deviation" = int_sd, "CI.Lower" = ci_l, "CI.Upper" = ci_u)
     return(new_df)
   }

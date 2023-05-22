@@ -31,8 +31,8 @@ abundance <- function (x) {
     x <- x[!is.na(x)]
     ab_mean <- round((sum(x)/(length(x))), digits = 3)
     ab_sd <- round(sd(x), digits = 3)
-    ci_l <- ifelse(mean(x) - 1.95996 * (sd(x)/sqrt(length(x))) < 0, 0, round(mean(x) - 1.95996 * (sd(x)/sqrt(length(x))), digits = 3))
-    ci_u <- round(mean(x) + 1.95996 * (sd(x)/sqrt(length(x))), digits = 3)
+    ci_l <- ifelse(ab_mean - 1.95996 * (sd(x)/sqrt(length(x))) < 0, 0, round(ab_mean - 1.95996 * (sd(x)/sqrt(length(x))), digits = 3))
+    ci_u <- round(ab_mean + 1.95996 * (sd(x)/sqrt(length(x))), digits = 3)
     new_df <- data.frame("Mean.Abundance" = ab_mean, "Standard.Deviation" = ab_sd, "CI.Lower" = ci_l, "CI.Upper" = ci_u)
     return(new_df)
   }
