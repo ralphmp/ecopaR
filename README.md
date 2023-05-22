@@ -22,11 +22,14 @@ if(!require(ecopaR)){
 library(ecopaR)
 ```
 
+### Linux users need to install the following packages before installing devtools (Debian examples): libcurl4-openssl-dev libssl-dev libfontconfig1-dev libxml2-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev
+
 ## Examples:
 
 ### birdticks data:
 
 ``` r
+
 attach(birdticks)
 str(birdticks)
 #> 'data.frame':    589 obs. of  2 variables:
@@ -45,19 +48,21 @@ head(birdticks)
 ### Basic functions:
 
 ``` r
+
 prevalence(ticks)
 #> [1] 51.104
 abundance(ticks)
-#>   Mean.Abundance Standard.Deviation
-#> 1          4.054             11.492
+#>   Mean.Abundance Standard.Deviation CI.Lower CI.Upper
+#> 1          4.054             11.492    3.126    4.982
 intensity(ticks)
-#>   Mean.Intensity Standard.Deviation
-#> 1          7.934             15.098
+#>   Mean.Intensity Standard.Deviation CI.Lower CI.Upper
+#> 1          7.934             15.098    3.126    4.982
 ```
 
 ### Aggregation indexes:
 
 ``` r
+
 var_mean(ticks)
 #> [1] 32.572
 k_negative_binomial(ticks)
@@ -75,6 +80,7 @@ discrepancy(ticks)
 ### Combining with R functions:
 
 ``` r
+
 birdticks %>% 
   group_by(birds) %>% 
     summarise(
@@ -83,19 +89,21 @@ birdticks %>%
       Intensity = intensity(ticks)[1]) %>% 
       head()
 #> # A tibble: 6 × 4
-#>   birds                       Prevalence Abundance$Mean.Abu… Intensity$Mean.Int…
-#>   <chr>                            <dbl>               <dbl>               <dbl>
-#> 1 Anabazenops fuscus                55.6               15                  27   
-#> 2 Arremon taciturnus                35.7                0.5                 1.4 
-#> 3 Attila rufus                      83.3                6.33                7.6 
-#> 4 Basileuterus culicivorus          50                  1.57                3.14
-#> 5 Campylorhamphus falcularius      100                  4.33                4.33
-#> 6 Chiroxiphia caudata               47.1                3.29                7
+#>   birds                 Prevalence Abundance$Mean.Abund…¹ Intensity$Mean.Inten…²
+#>   <chr>                      <dbl>                  <dbl>                  <dbl>
+#> 1 Anabazenops fuscus          55.6                  15                     27   
+#> 2 Arremon taciturnus          35.7                   0.5                    1.4 
+#> 3 Attila rufus                83.3                   6.33                   7.6 
+#> 4 Basileuterus culiciv…       50                     1.57                   3.14
+#> 5 Campylorhamphus falc…      100                     4.33                   4.33
+#> 6 Chiroxiphia caudata         47.1                   3.29                   7   
+#> # ℹ abbreviated names: ¹​Abundance$Mean.Abundance, ²​Intensity$Mean.Intensity
 ```
 
 Prevalence graph:
 
 ``` r
+
 birdticks %>% 
   group_by(birds) %>% 
   summarise(
@@ -110,6 +118,7 @@ graph + coord_flip()
 Intensity graph:
 
 ``` r
+
 birdticks %>% 
   group_by(birds) %>% 
   summarise(
@@ -127,6 +136,7 @@ graph + scale_fill_brewer(palette="Dark2") + coord_flip()
 ### Hydric stress functions:
 
 ``` r
+
 saturation_deficit(80, 25)
 #> [1] 4.55717
 
