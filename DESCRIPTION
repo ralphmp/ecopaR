@@ -1,6 +1,6 @@
 Package: ecopaR
 Title: functions for parasite ecology
-Version: 0.0.0.9014
+Version: 0.0.0.9016
 Authors@R: 
     person(given = "Ralph",
            family = "Maturano",
