@@ -23,7 +23,7 @@ library(ecopaR)
 ```
 
 Linux users need to install the following packages before installing
-devtools (Debian examples): libcurl4-openssl-dev libssl-dev
+devtools (ex. Debian): libcurl4-openssl-dev libssl-dev
 libfontconfig1-dev libxml2-dev libharfbuzz-dev libfribidi-dev
 libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev
 
