@@ -12,6 +12,10 @@
 
 
 intensity <- function (x) {
+  if (any(is.na(x))){
+    warning("Missing values were ignored.")
+  x <- x[!is.na(x)]
+  }
   if (!is.numeric(x)) {
     stop(paste("Numbers of parasites must be a numeric variable."))
   }
@@ -27,7 +31,6 @@ intensity <- function (x) {
     dfi0 <- data.frame("Mean.Intensity" = i0, "Standard.Deviation" = i0_sd, "CI.Lower" == NA, "CI.Upper" == NA)
     return(dfi0)
   } else {
-    x <- x[!is.na(x)]
     int_mean <- round((sum(x)/(length(x[x != 0]))), digits = 3)
     int_sd <- round(sd(x[x !=0]), digits = 3)
     ci_l <- ifelse(int_mean - 1.95996 * (sd(x[x != 0])/sqrt(length(x[x != 0]))) < 0, 0, round(int_mean - 1.95996 * (sd(x[x != 0])/sqrt(length(x[x != 0]))), digits = 3))

@@ -11,6 +11,10 @@
 
 
 prevalence <- function (x) {
+  if (any(is.na(x))){
+    warning("Missing values were ignored.")
+    x <- x[!is.na(x)]
+  }
   if (!is.numeric(x)){
     stop(paste("Numbers of parasites must be a numeric variable."))
   }
@@ -20,7 +24,6 @@ prevalence <- function (x) {
   if (any(x < 0)) {
     stop(paste("Numbers of parasites must be positive values."))
   } else {
-    x <- x[!is.na(x)]
     prev <- round(((length(x[x != 0])/(length(x)))*100), digits = 3)
     return(prev)
   }

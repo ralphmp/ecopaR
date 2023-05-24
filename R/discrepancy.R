@@ -10,6 +10,10 @@
 
 
 discrepancy <- function(x){
+  if (any(is.na(x))){
+    warning("Missing values were ignored.")
+    x <- x[!is.na(x)]
+  }
   if (!is.numeric(x)){
     stop(paste("Number of parasites must be a numeric variable."))
   }

@@ -13,6 +13,10 @@
 
 
 abundance <- function (x) {
+  if (any(is.na(x))){
+    warning("Missing values were ignored.")
+    x <- x[!is.na(x)]
+  }
   if (!is.numeric(x)){
     stop(paste("Numbers of parasites must be a numeric variable."))
   }
@@ -28,7 +32,6 @@ abundance <- function (x) {
     df0 <- data.frame("Mean.Abundance" = ab0, "Standard.Deviation" = ab0_sd, "CI.Lower" == NA, "CI.Upper" == NA)
     return(df0)
   } else {
-    x <- x[!is.na(x)]
     ab_mean <- round((sum(x)/(length(x))), digits = 3)
     ab_sd <- round(sd(x), digits = 3)
     ci_l <- ifelse(ab_mean - 1.95996 * (sd(x)/sqrt(length(x))) < 0, 0, round(ab_mean - 1.95996 * (sd(x)/sqrt(length(x))), digits = 3))

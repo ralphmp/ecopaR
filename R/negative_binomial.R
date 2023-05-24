@@ -12,6 +12,10 @@
 
 
 k_negative_binomial <- function(x) {
+  if (any(is.na(x))){
+    warning("Missing values were ignored.")
+    x <- x[!is.na(x)]
+  }
   if (!is.numeric(x)){
     stop(paste("Number of parasites must be a numeric variable."))
   }
@@ -44,6 +48,10 @@ k_negative_binomial <- function(x) {
 
 
 k_negative_binomial_inverse <- function(x) {
+  if (any(is.na(x))){
+    warning("Missing values were ignored.")
+    x <- x[!is.na(x)]
+  }
   if (!is.numeric(x)){
     stop(paste("Number of parasites must be a numeric variable."))
   }
